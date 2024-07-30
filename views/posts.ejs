@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./partials/head.ejs") %>
+
+    <body>
+        <%- include("./partials/nav.ejs") %>
+        <h2>Post Details</h2>
+        <p>User Id: <%=user.id %></p>
+        <p>Title: <%=user.title %></p>
+
+        <button data-id=" <%= user.id %>" id="delUser">Uchirish</button>
+        <script>
+            const delButton = document.createElement("delUser")
+            delButton.addEventListener("click", (e) => {
+                const id = e.target?.dataset?.id || null;
+                if (id != null) {
+                    fetch(`/user/${id}`, {
+                        method: "DELETE",
+                    }).then(() => {
+                        console.log("User deleted successfully");
+                        setTimeout(() => {
+                            window.location.href = "/posts";
+                        }, 200);
+
+                    });
+                }
+            });
+        </script>
+    </body>
+
+</html>
